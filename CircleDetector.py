@@ -62,8 +62,18 @@ class CircleDetector:
 # main function    
 def main():
 
+    # check input
+    if len(sys.argv) < 2:
+        print "python", sys.argv[0], "image-path"
+        return -1
+
     # load source image
     img = cv2.imread(sys.argv[1], 1)
+   
+    # check load success
+    if img is None:
+        print "could not load image:", sys.argv[1]
+        return -1
 
     # show source image
     cv2.imshow("source-image", img)
