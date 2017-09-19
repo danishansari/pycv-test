@@ -4,9 +4,12 @@ import numpy as np
 # Class to find circles in an image
 class CircleDetector:
 
+    # image to process
     img = None
 
+    # function to denoise image
     def denoiseImage(self):
+
         # convert image to gray
         img_gray = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY)
     
@@ -20,7 +23,9 @@ class CircleDetector:
 
         self.img = img_erosion
 
+    # function to find circles
     def findCircles(self):
+
         # blur image to find circles using haugh
         img_blur = cv2.blur(self.img, (3, 3))
   
@@ -38,6 +43,7 @@ class CircleDetector:
         return detected
 
     
+    # function to detect circles
     def detectCircles(self, src_img):
 
         self.img = src_img
@@ -53,15 +59,20 @@ class CircleDetector:
         return circles
 
 
+# main function    
 def main():
+
+    # load source image
     img = cv2.imread(sys.argv[1], 1)
 
+    # show source image
     cv2.imshow("source-image", img)
 
-    #detectedCircles = detectCircles(img)
+    # detect circles in source image
     detector = CircleDetector()
     detectedCircles = detector.detectCircles(img);
 
+    # draw all detected circles
     if len(detectedCircles) > 0:
         for i in detectedCircles:
             cv2.circle(img, (i[0], i[1]), i[2], (256, 0, 0), 2)
@@ -73,6 +84,7 @@ def main():
    
     print "Press any key to exit!"
     cv2.waitKey(0)
+
 
 if __name__=="__main__":
     main()
